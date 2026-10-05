@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plano de Secção - Salvar a Educação</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+            color: #000;
+        }
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 12mm 15mm;
+            margin: 0 auto;
+            background: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header-title {
+            text-align: center;
+            font-weight: bold;
+            font-size: 13pt;
+            margin-bottom: 3px;
+        }
+        .sub-header {
+            text-align: center;
+            font-weight: bold;
+            font-size: 10pt;
+            font-style: italic;
+            margin-bottom: 5px;
+        }
+        .banner-box {
+            border: 2px solid #000;
+            text-align: center;
+            font-weight: bold;
+            font-size: 15pt;
+            padding: 3px 0;
+            margin: 8px 0 12px 0;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px;
+            font-size: 9.5pt;
+            margin-bottom: 10px;
+        }
+        .full-width {
+            grid-column: span 2;
+        }
+        select, input[type="text"] {
+            width: 100%;
+            padding: 3px;
+            font-size: 9.5pt;
+            box-sizing: border-box;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 8px;
+            font-size: 9pt;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 4px 6px;
+            vertical-align: top;
+        }
+        th {
+            background-color: #e6e6e6;
+            text-align: left;
+            font-weight: bold;
+        }
+        .num-col {
+            width: 25px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .sub-desc {
+            font-weight: normal;
+            font-size: 8pt;
+            font-style: italic;
+        }
+
+        /* DESTAQUE DA SECÇÃO DE APONTAMENTOS / QUADRO */
+        .board-notes-section {
+            background-color: #fdfefe;
+            border: 2px dashed #28a745;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .board-title {
+            font-weight: bold;
+            color: #155724;
+            font-size: 10.5pt;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #28a745;
+            padding-bottom: 3px;
+        }
+        .board-content {
+            font-family: 'Courier New', Courier, monospace;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 10px;
+            font-size: 9.5pt;
+            white-space: pre-wrap;
+            line-height: 1.4;
+            color: #111;
+        }
+
+        .signatures {
+            margin-top: 25px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 9.5pt;
+        }
+        .sig-box {
+            width: 45%;
+            text-align: center;
+        }
+        .sig-line {
+            margin-top: 30px;
+            border-top: 1px solid #000;
+        }
+        .date-box {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 9.5pt;
+        }
+        .no-print {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .btn-print {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 11pt;
+            border-radius: 4px;
+        }
+        @media print {
+            body { background: none; margin: 0; }
+            .page { border: none; box-shadow: none; padding: 0; }
+            .no-print { display: none; }
+            .board-notes-section { border: 1px solid #000; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="no-print">
+        <button class="btn-print" onclick="window.print()">Imprimir / Guardar em PDF</button>
+    </div>
+
+    <div class="page">
+        <div class="sub-header">Projecto:</div>
+        <div class="header-title">Salvar a Educação, Proteger a Infância no Norte de Moçambique</div>
+        
+        <div class="banner-box">Plano de Secção</div>
+
+        <div class="form-grid">
+            <div><strong>Distrito:</strong> <input type="text" value="Pemba"></div>
+            <div><strong>Comunidade:</strong> <input type="text" placeholder="Nome da Comunidade"></div>
+            <div><strong>Localidade:</strong> <input type="text" placeholder="Nome da Localidade"></div>
+            <div><strong>Escola:</strong> <input type="text" placeholder="Nome da Escola"></div>
+            <div><strong>Turno:</strong> <input type="text" value="Manhã"></div>
+            <div><strong>Duração da secção:</strong> 2h</div>
+            <div class="full-width"><strong>Disciplina:</strong> <input type="text" value="Língua Portuguesa / Matemática"></div>
+            <div class="full-width">
+                <strong>Data1:</strong> <input type="text" style="width: 11%;" placeholder="dd/mm">
+                <strong>Data2:</strong> <input type="text" style="width: 11%;" placeholder="dd/mm">
+                <strong>Data3:</strong> <input type="text" style="width: 11%;" placeholder="dd/mm">
+                <strong>Data4:</strong> <input type="text" style="width: 11%;" placeholder="dd/mm">
+                <strong>Data5:</strong> <input type="text" style="width: 11%;" placeholder="dd/mm">
+            </div>
+            <div class="full-width"><strong>Facilitador:</strong> <input type="text" placeholder="Nome do Facilitador"></div>
+            
+            <!-- SELEÇÃO DE TEMA -->
+            <div class="full-width" style="margin-top: 8px; background-color: #ffffcc; padding: 6px; border: 1px solid #e6e600;">
+                <strong>Selecionar Tema para Preenchimento Automático:</strong>
+                <select id="selectTema" onchange="carregarTema()">
+                    <option value="">-- Selecione o Tema --</option>
+                    <option value="tema1">Tema 1: Leitura e Compreensão de Vogais e Consoantes</option>
+                    <option value="tema2">Tema 2: Operações Básicas de Adição e Subtração</option>
+                    <option value="tema3">Tema 3: Higiene Pessoal e Proteção da Infância</option>
+                </select>
+            </div>
+            <div class="full-width"><strong>Tema Selecionado:</strong> <input type="text" id="campoTema" placeholder="Tema escolhido..."></div>
+        </div>
+
+        <!-- NOVO ESPAÇO: APONTAMENTOS PARA O QUADRO / CADERNO DO ALUNO -->
+        <div class="board-notes-section">
+            <div class="board-title">📝 Apontamentos para o Quadro (Conteúdo a ser escrito pelo Tutor no Quadro para os Alunos copiarem no Caderno):</div>
+            <div class="board-content" id="apontamentosQuadro">-- Selecione um tema acima para ver os apontamentos do quadro --</div>
+        </div>
+
+        <!-- TABELA DO PLANO DE SECÇÃO -->
+        <table>
+            <!-- OBJECTIVOS -->
+            <thead>
+                <tr>
+                    <th colspan="2">Objectivos <span class="sub-desc">(Conhecimento, habilidades que o aluno deve saber/alcançar/mostrar/demonstrar)</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="num-col">1</td><td id="obj_1"></td></tr>
+                <tr><td class="num-col">2</td><td id="obj_2"></td></tr>
+                <tr><td class="num-col">3</td><td id="obj_3"></td></tr>
+                <tr><td class="num-col">4</td><td id="obj_4"></td></tr>
+                <tr><td class="num-col">5</td><td id="obj_5"></td></tr>
+            </tbody>
+
+            <!-- CONTEÚDOS -->
+            <thead>
+                <tr>
+                    <th colspan="2">Conteúdos <span class="sub-desc">(Saberes, habilidades, e conceitos que serão ensinados ou mediado na sessão)</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="num-col">1</td><td id="cont_1"></td></tr>
+                <tr><td class="num-col">2</td><td id="cont_2"></td></tr>
+                <tr><td class="num-col">3</td><td id="cont_3"></td></tr>
+                <tr><td class="num-col">4</td><td id="cont_4"></td></tr>
+                <tr><td class="num-col">5</td><td id="cont_5"></td></tr>
+            </tbody>
+
+            <!-- PROCEDIMENTOS -->
+            <thead>
+                <tr>
+                    <th colspan="2">Procedimentos <span class="sub-desc">(As técnicas e estratégias que facilitarão a mediação ou transmissão dos conteúdos)</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="num-col">1</td><td id="proc_1"></td></tr>
+                <tr><td class="num-col">2</td><td id="proc_2"></td></tr>
+                <tr><td class="num-col">3</td><td id="proc_3"></td></tr>
+                <tr><td class="num-col">4</td><td id="proc_4"></td></tr>
+                <tr><td class="num-col">5</td><td id="proc_5"></td></tr>
+            </tbody>
+
+            <!-- TAREFAS/ACTIVIDADES -->
+            <thead>
+                <tr>
+                    <th colspan="2">Tarefas/actividades <span class="sub-desc">(Conjunto de ações que o facilitador identifica, seleciona e organiza para que os alunos possam realizar)</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="num-col">1</td><td id="tar_1"></td></tr>
+                <tr><td class="num-col">2</td><td id="tar_2"></td></tr>
+                <tr><td class="num-col">3</td><td id="tar_3"></td></tr>
+                <tr><td class="num-col">4</td><td id="tar_4"></td></tr>
+                <tr><td class="num-col">5</td><td id="tar_5"></td></tr>
+            </tbody>
+
+            <!-- MEIOS DIDÁTICOS -->
+            <thead>
+                <tr>
+                    <th colspan="2">Meios didáticos <span class="sub-desc">(Recursos de apoio ao processo do ensino e aprendizagem)</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="num-col">1</td><td id="meio_1"></td></tr>
+                <tr><td class="num-col">2</td><td id="meio_2"></td></tr>
+                <tr><td class="num-col">3</td><td id="meio_3"></td></tr>
+                <tr><td class="num-col">4</td><td id="meio_4"></td></tr>
+                <tr><td class="num-col">5</td><td id="meio_5"></td></tr>
+            </tbody>
+
+            <!-- AVALIAÇÃO -->
+            <thead>
+                <tr>
+                    <th colspan="2">Avaliação <span class="sub-desc">(Instrumentos/ferramentas que o facilitador usará para poder medir até que ponto os alunos assimilaram os conteúdos ensinados)</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="num-col">1</td><td id="aval_1"></td></tr>
+                <tr><td class="num-col">2</td><td id="aval_2"></td></tr>
+                <tr><td class="num-col">3</td><td id="aval_3"></td></tr>
+                <tr><td class="num-col">4</td><td id="aval_4"></td></tr>
+                <tr><td class="num-col">5</td><td id="aval_5"></td></tr>
+            </tbody>
+        </table>
+
+        <!-- ASSINATURAS E DATA -->
+        <div class="signatures">
+            <div class="sig-box">
+                Oficial Provincial de Educação
+                <div class="sig-line"></div>
+            </div>
+            <div class="sig-box">
+                O Coordenador Pedagógico
+                <div class="sig-line"></div>
+            </div>
+        </div>
+
+        <div class="date-box">
+            ________ aos ____ / ____ / 2026
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT DE PREENCHIMENTO AUTOMÁTICO -->
+    <script>
+        const dadosTemas = {
+            tema1: {
+                titulo: "Leitura e Compreensão de Vogais e Consoantes",
+                apontamentos: 
+`--- APONTAMENTOS PARA ESCREVER NO QUADRO ---
+
+1. As Vogais:
+   A - E - I - O - U
+   a - e - i - o - u
+
+2. Formação de Sílabas com a letra 'B':
+   B + A = BA
+   B + E = BE
+   B + I = BI
+   B + O = BO
+   B + U = BU
+
+3. Palavras para Ler e Copiar:
+   - BA-BA
+   - BO-LA
+   - MA-PA
+   - BA-Ú
+
+4. TPC / Exercício no Caderno:
+   Escreve 3 vezes no teu caderno as sílabas: BA, BE, BI, BO, BU.`,
+                objectivos: [
+                    "Identificar as vogais e consoantes no alfabeto.",
+                    "Pronunciar corretamente os sons das letras.",
+                    "Formar sílabas simples (ex: ba, be, bi, bo, bu).",
+                    "Ler palavras curtas de duas sílabas.",
+                    "Demonstrar interesse na leitura individual."
+                ],
+                conteudos: [
+                    "As vogais (A, E, I, O, U).",
+                    "As consoantes primárias (B, P, M, T).",
+                    "Junção de consoantes e vogais (Formação de Sílabas).",
+                    "Leitura de palavras simples (ex: Mapa, Bola, Mão).",
+                    "Exercícios de associação de imagens a palavras."
+                ],
+                procedimentos: [
+                    "Apresentação das letras com cartazes ilustrados.",
+                    "Cântico do alfabeto em grupo.",
+                    "Demonstração do som de cada letra pelo facilitador.",
+                    "Trabalho em pares para montagem de palavras.",
+                    "Orientação individualizada aos alunos com dificuldades."
+                ],
+                tarefas: [
+                    "Copiar as vogais no caderno.",
+                    "Ligar a letra inicial à imagem correspondente.",
+                    "Completar as palavras com as sílabas em falta.",
+                    "Leitura em voz alta na frente da turma.",
+                    "Ditado de 5 palavras simples."
+                ],
+                meios: [
+                    "Cartazes com o alfabeto ilustrado.",
+                    "Quadro preto e giz / Marcadores.",
+                    "Fichas de leitura individuais.",
+                    "Letras móveis em cartão.",
+                    "Livro de texto da 1ª Classe."
+                ],
+                avaliacao: [
+                    "Observação direta da participação dos alunos.",
+                    "Verificação da caligrafia e cópia no caderno.",
+                    "Avaliação oral da leitura de sílabas.",
+                    "Correção do exercício de associação de imagens.",
+                    "Ficha de avaliação diagnóstica individual."
+                ]
+            },
+            tema2: {
+                titulo: "Operações Básicas de Adição e Subtração",
+                apontamentos: 
+`--- APONTAMENTOS PARA ESCREVER NO QUADRO ---
+
+1. Os Sinais da Matemática:
+   + (Mais - Somar/Juntar)
+   - (Menos - Subtrair/Tirar)
+   = (Igual a)
+
+2. Exemplos de Adição (Somar):
+   ●● + ● = 3  ---> (2 + 1 = 3)
+   ●●● + ●● = 5 ---> (3 + 2 = 5)
+
+3. Exemplos de Subtração (Tirar):
+   ●●● - ● = 2 ---> (3 - 1 = 2)
+   ●●●● - ●● = 2 ---> (4 - 2 = 2)
+
+4. Exercício para Copiar e Resolver no Caderno:
+   a) 2 + 3 = ____
+   b) 4 + 1 = ____
+   c) 5 - 2 = ____
+   d) 3 - 3 = ____`,
+                objectivos: [
+                    "Reconhecer os números de 1 a 50.",
+                    "Compreender o conceito de somar (juntar) e subtrair (tirar).",
+                    "Resolver problemas matemáticos simples do dia a dia.",
+                    "Utilizar materiais concretos para efetuar contagens.",
+                    "Demonstrar rapidez no cálculo mental básico."
+                ],
+                conteudos: [
+                    "Revisão da contagem numérica de 1 a 50.",
+                    "O sinal de Adição (+), Subtração (-) e Igualdade (=).",
+                    "Somas simples com um dígito.",
+                    "Subtrações simples com um dígito.",
+                    "Resolução de pequenos problemas de contagem."
+                ],
+                procedimentos: [
+                    "Demonstração prática usando pedrinhas/tampinhas.",
+                    "Explicação das operações no quadro.",
+                    "Simulação de compras de objetos para praticar soma/subtração.",
+                    "Resolução coletiva de exercícios.",
+                    "Apoio direto aos alunos na contagem manual."
+                ],
+                tarefas: [
+                    "Contar objetos na sala de aula e registar o número.",
+                    "Resolver 5 somas no caderno.",
+                    "Resolver 5 subtrações no caderno.",
+                    "Desenhar conjuntos e efetuar a junção.",
+                    "Responder aos problemas propostos pelo facilitador."
+                ],
+                meios: [
+                    "Tampinhas de garrafa e pedrinhas para contagem.",
+                    "Ábaco ou material dourado.",
+                    "Quadro e giz.",
+                    "Fichas de exercícios impressas.",
+                    "Cartazes com os números de 1 a 50."
+                ],
+                avaliacao: [
+                    "Verificação do uso correto do material concreto.",
+                    "Correção dos exercícios no caderno.",
+                    "Perguntas de cálculo mental oral.",
+                    "Ficha curta de exercícios no final da sessão.",
+                    "Registo do progresso individual na tabela de acompanhamento."
+                ]
+            },
+            tema3: {
+                titulo: "Higiene Pessoal e Proteção da Infância",
+                apontamentos: 
+`--- APONTAMENTOS PARA ESCREVER NO QUADRO ---
+
+1. Hábitos de Higiene Diários:
+   - Tomar banho todos os dias.
+   - Lavar as mãos com água e sabão antes de comer.
+   - Escovar os dentes depois das refeições.
+
+2. Como lavar bem as mãos (Passos):
+   1º Molhar as mãos com água limpa.
+   2º Usar sabão e esfregar bem a palma e as costas das mãos.
+   3º Enxaguar com água corrente e secar.
+
+3. Direitos da Criança:
+   - Direito à Educação (Ir à escola).
+   - Direito à Saúde e Proteção.
+   - Direito de Brincar.
+
+4. Trabalho para o Caderno:
+   Desenha no teu caderno uma criança a lavar as mãos.`,
+                objectivos: [
+                    "Reconhecer a importância da lavagem das mãos com sabão.",
+                    "Identificar hábitos diários de higiene corporal.",
+                    "Compreender os direitos fundamentais da criança.",
+                    "Saber como pedir ajuda em situações de perigo.",
+                    "Promover a saúde e bem-estar na comunidade."
+                ],
+                conteudos: [
+                    "A importância da higiene pessoal (banho, dentes, mãos).",
+                    "Prevenção de doenças através da água limpa.",
+                    "Direito à proteção, educação e brincar.",
+                    "Identificação de adultos de confiança na comunidade.",
+                    "Regras de convivência saudável na escola."
+                ],
+                procedimentos: [
+                    "Demonstração prática da lavagem correta das mãos.",
+                    "Exibição de gravuras com hábitos de higiene.",
+                    "Roda de conversa sobre a proteção da criança.",
+                    "Dramatização (teatro) de situações do dia a dia.",
+                    "Debate guiado sobre segurança e apoio mútuo."
+                ],
+                tarefas: [
+                    "Praticar a lavagem das mãos na bacia de água.",
+                    "Identificar nas gravuras os comportamentos corretos.",
+                    "Desenhar uma ação de higiene pessoal no caderno.",
+                    "Mencionar 3 direitos das crianças em voz alta.",
+                    "Partilhar em casa o que aprendeu sobre higiene."
+                ],
+                meios: [
+                    "Balde com torneira / Bacia, água e sabão.",
+                    "Cartazes sobre Direitos da Criança.",
+                    "Imagens ilustrativas de hábitos de higiene.",
+                    "Quadro e giz.",
+                    "Folhetos informativos do projeto."
+                ],
+                avaliacao: [
+                    "Aferição prática da técnica de lavagem das mãos.",
+                    "Participação ativa na roda de conversa.",
+                    "Avaliando os desenhos produzidos pelos alunos.",
+                    "Respostas às perguntas de reflexão final.",
+                    "Observação do comportamento e atitude interpessoal."
+                ]
+            }
+        };
+
+        function carregarTema() {
+            const select = document.getElementById('selectTema');
+            const temaChave = select.value;
+            const campoTema = document.getElementById('campoTema');
+            const apontamentosBox = document.getElementById('apontamentosQuadro');
+
+            if (!temaChave || !dadosTemas[temaChave]) {
+                campoTema.value = "";
+                apontamentosBox.innerText = "-- Selecione um tema acima para ver os apontamentos do quadro --";
+                limparCampos();
+                return;
+            }
+
+            const t = dadosTemas[temaChave];
+            campoTema.value = t.titulo;
+            apontamentosBox.innerText = t.apontamentos;
+
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById(`obj_${i}`).innerText = t.objectivos[i - 1] || "";
+                document.getElementById(`cont_${i}`).innerText = t.conteudos[i - 1] || "";
+                document.getElementById(`proc_${i}`).innerText = t.procedimentos[i - 1] || "";
+                document.getElementById(`tar_${i}`).innerText = t.tarefas[i - 1] || "";
+                document.getElementById(`meio_${i}`).innerText = t.meios[i - 1] || "";
+                document.getElementById(`aval_${i}`).innerText = t.avaliacao[i - 1] || "";
+            }
+        }
+
+        function limparCampos() {
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById(`obj_${i}`).innerText = "";
+                document.getElementById(`cont_${i}`).innerText = "";
+                document.getElementById(`proc_${i}`).innerText = "";
+                document.getElementById(`tar_${i}`).innerText = "";
+                document.getElementById(`meio_${i}`).innerText = "";
+                document.getElementById(`aval_${i}`).innerText = "";
+            }
+        }
+    </script>
+</body>
+</html>
